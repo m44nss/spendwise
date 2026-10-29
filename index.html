@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101411">
+    <meta name="description"
+        content="SpendWise is a simple personal expense tracker to manage spending and track your budget.">
+    <title>SpendWise — Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <main class="app">
+        <header class="topbar">
+            <a class="brand" href="./"><span class="brand-icon">S</span> SpendWise</a>
+            <span class="local-tag">● Your data stays on this device</span>
+        </header>
+
+        <section class="intro">
+            <p class="eyebrow">PERSONAL FINANCE</p>
+            <h1>Know where your<br><span>money goes.</span></h1>
+            <p class="subtitle">A clearer picture of your spending starts here.</p>
+        </section>
+
+        <section class="stats" aria-label="Spending summary">
+            <article class="stat-card highlight">
+                <p>Total expenses</p>
+                <h2 id="totalAmount">₹0.00</h2>
+                <span>All recorded expenses</span>
+            </article>
+            <article class="stat-card">
+                <p>This month</p>
+                <h2 id="monthAmount">₹0.00</h2>
+                <span>Current calendar month</span>
+            </article>
+            <article class="stat-card">
+                <p>Transactions</p>
+                <h2 id="transactionCount">0</h2>
+                <span>Expenses recorded</span>
+            </article>
+        </section>
+
+        <section class="content-grid">
+            <article class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">NEW TRANSACTION</p>
+                        <h2>Add an expense</h2>
+                    </div>
+                    <span class="plus-icon">+</span>
+                </div>
+
+                <form id="expenseForm">
+                    <label for="description">What did you spend on?</label>
+                    <input id="description" name="description" type="text" placeholder="e.g. Lunch with friends"
+                        maxlength="80" required>
+
+                    <div class="form-row">
+                        <div>
+                            <label for="amount">Amount (₹)</label>
+                            <input id="amount" name="amount" type="number" placeholder="250.00" min="0.01"
+                                max="100000000" step="0.01" required>
+                        </div>
+                        <div>
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="Food">🍜 Food</option>
+                                <option value="Transport">🚗 Transport</option>
+                                <option value="Shopping">🛍️ Shopping</option>
+                                <option value="Bills">💡 Bills</option>
+                                <option value="Health">💊 Health</option>
+                                <option value="Entertainment">🎬 Entertainment</option>
+                                <option value="Other">📦 Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label for="date">Date</label>
+                    <input id="date" name="date" type="date" required>
+
+                    <button class="primary-btn" type="submit">+ Add expense</button>
+                    <p id="formMessage" class="form-message" role="status"></p>
+                </form>
+            </article>
+
+            <article class="panel expenses-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">YOUR MONEY</p>
+                        <h2>Recent expenses</h2>
+                    </div>
+                    <select id="filterCategory" aria-label="Filter by category">
+                        <option value="All">All categories</option>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Health">Health</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div id="expenseList" class="expense-list"></div>
+                <p id="emptyState" class="empty-state">
+                    <span>✳</span><br>
+                    Nothing here yet.<br>Add your first expense to get started.
+                </p>
+                <div class="list-footer">
+                    <span id="visibleCount">0 transactions</span>
+                    <button id="clearAll" class="text-btn" type="button">Clear all</button>
+                </div>
+            </article>
+        </section>
+
+        <footer>
+            <span>SpendWise © <span id="year"></span></span>
+            <span>Simple money habits. Better decisions.</span>
+        </footer>
+    </main>
+    <dialog id="confirmDialog" class="confirm-dialog">
+        <form method="dialog">
+            <h2>Clear all expenses?</h2>
+            <p>This will permanently remove all saved expenses from this browser.</p>
+            <div class="dialog-actions">
+                <button value="cancel" class="secondary-btn">Cancel</button>
+                <button id="confirmClear" value="confirm" class="danger-btn">Clear expenses</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+
+</html>
